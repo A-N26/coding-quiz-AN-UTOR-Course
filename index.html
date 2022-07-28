@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- device viewport scaling -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- tab/site icon links -->
+    <link rel="icon" alt="Coding Quiz" href="assets/images/android-chrome-512x512.png" />
+    <link rel="icon" alt="Coding Quiz" href="assets/images/favicon-16x16.png"/>
+    <link rel="icon" alt="Coding Quiz" href="assets/images/favicon.ico"/>
+    <link rel="manifest" href="assets/images/site.webmanifest"/>
+    <!-- css link -->
+    <link rel="stylesheet" href="assets/css/style.css" type="text/css">
+    <!-- javascript link -->
+    <script type="text/javascript" src="assets/js/script.js"></script>
+    <title>CODE quiz</title>
+</head>
+<body>
+    <header>
+        <div>
+            <p class="timer">Timer: <span id="tik-tok">000</span></p>
+        </div>
+        <div>
+            <button class="Score-btn" id="Scores-Btn" target="_top">View High Scores
+            </button>
+        </div>
+    </header>
+
+    <div class="QAcontent">
+        <section id="introPanel" class="intro">
+            <h1>Co-vizal Mania!</h1>
+            <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your time by ten seconds!</p>
+            <button id="startBtn">Start Quiz</button>
+        </section>
+
+        <div id="QuizQList" class="hide">
+            <h2 id="question"></h2>
+            <div id="Options" class="Options"></div>
+        </div>
+
+        <div id="result" class="clear"></div>
+
+        <section id="finish" class="hide">
+            <h2>All done!</h2>
+            <p>
+                Your final score is <span id="score!"></span>
+            </p>
+            <p>
+                Enter your initials: <input type="text" id="Name"/>
+                <button id="submitBtn">Submit</button>
+            </p>
+        </section>
+        <section class="hide">
+            <h2>HighScores</h2>
+            <ol id="scores"></ol>
+            <button id="back">Go back</button>
+            <button id="clear">Clear High Scores</button>
+        </section>
+    </div>
+</body>
+</html>
