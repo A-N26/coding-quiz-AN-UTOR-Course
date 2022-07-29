@@ -1,18 +1,22 @@
 // DOM Elements
 var timerEl = document.querySelector("#tik-tok");
-var startEl = document.querySelector("#startBtn");
+var startBtn = document.querySelector("#Begin");
 var questionsEl = document.querySelector("#QuizQList");
+var Questions = document.querySelector("#questions");
 var OptionsEl = document.querySelector("#Options");
 var RightWrongEl = document.querySelector("#result");
-var initialsEl = document.querySelector("#Name");
-var submitEl = document.querySelector("#submitBtn");
+var initialsEl = document.querySelector("#Names");
+var submitBtn = document.querySelector("#submit");
+var timeleft = 50;
+var totalPoints = 0;
 
 // quiz timer stat
 var QuestionNumber = 0;
-var time = question.length * 10;
+var time = Questions.length * 10;
 var tickerId;
 
-function Begin() {
+document.getElementById("startBtn").addEventListener("click", StartQuiz);
+function StartQuiz() {
   // hide intro panel
   var introEl = document.getElementById("#introPanel");
   introEl.setAttribute("class", "hide");
@@ -21,58 +25,19 @@ function Begin() {
   // start countdown
   tickerId = setInterval(counter, 1000);
   timerEl.textContent = time;
-  getQuizQuestion();
+  getQuizQList();
 }
 
-// array/list of questions, multiple choices and answers
-var QList = [
-  {
-    Q: "Who is making the Web standards?",
-    Options: [
-      "The World Wide Web Consortium",
-      "Mozilla",
-      "Google",
-      "Microsoft",
-    ],
-    A: "The World Wide Web Consortium",
-  },
-  {
-    Q: "Which character is used to indicate as end tag?",
-    Options: ["<", "^", ";", "/"],
-    A: "/",
-  },
-  {
-    Q: "Inside which HtML element do we put the JavaScript?",
-    Options: ["<scripting>", "<script>", "<javascript>", "<js>"],
-    A: "<script>",
-  },
-  {
-    Q: "Which operator is used to assign a value to a variable?",
-    Options: ["=", "*", "-", "x"],
-    A: "=",
-  },
-  {
-    Q: "What does css stand for?",
-    Options: [
-      "Cascading Style Sheets",
-      "Creative Style Sheets",
-      "Computer Style Sheets",
-      "Colourful Style Sheets",
-    ],
-    A: "cascading Style Sheets",
-  },
-];
-
-function getQuizQuestion() {
+function getQuizQList() {
   // get question from array
-  var question = QList[QuestionNumber];
+  var presentQ = Questions[QuestionNumber];
   // updating questions on panel
-  var panelEl = document.getElementById("QuizQ");
-  panelEl.textContent = newQ.title;
+  var panelEl = document.getElementById("questions");
+  panelEl.textContent = presentQ.title;
   // clear mcqs
   OptionsEl.innerHTML = "";
   // loop through mcqs
-  question.Options.forEach(function (Option, i) {
+  Questions.Options.forEach(function (Option, i) {
     // create button for each mcq
     var OptionNode = document.createElement("button");
     OptionNode.setAttribute("class", "Option");
@@ -87,7 +52,7 @@ function getQuizQuestion() {
 // 'if' arguments for wrong or right answers.
 function QClick() {
   // penalty for wrong answers
-  if (this.value !== QList[QuestionNumber].answer) {
+  if (this.value !== Questions[QuestionNumber].answer) {
     time -= 10;
     if (time < 0) {
       time = 0;
@@ -109,7 +74,7 @@ function QClick() {
   }, 1000);
   // move to next question
   QuestionNumber++;
-  if (QuestionNumber === question.length) {
+  if (QuestionNumber === Questions.length) {
     quizEnd();
   } else {
     getQuizQuestion();
@@ -118,14 +83,14 @@ function QClick() {
 function quizEnd() {
   // countdown finished
   clearInterval(tickerId);
-  // hide questions panel
-  questionsEl.setAttribute("class", "hide");
   // unhide finish panel
   var finishEl = document.getElementById("finish");
   finishEl.removeAttribute("class");
   // final score panel
   var finalScoreEl = document.getElementById("score!");
   finalScoreEl.textContent = time;
+  // hide questions panel
+  questionsEl.setAttribute("class", "hide");
 }
 
 function counter() {
@@ -137,24 +102,6 @@ function counter() {
     quizEnd();
   }
 }
-function printHighScores() {
-  var HighScores = JSON.parse(window.localStorage.getItem("HighScores")) || [];
-  // sorting HighScores
-  HighScores.sort(function (a, b) {
-    return b.score - a.score;
-  });
-  HighScores.forEach(function (score) {
-    var scorelist = document.createElement("li");
-    li.textContent = score.initials + "-" + score.score;
-    var olEl = document.getElementById("HighScores");
-    olEl.appendChild(scorelist);
-  });
-}
-function clearHighScores() {
-  window.localStorage.removeItem("HighScores");
-  window.location.reload();
-}
-document.getElementById("clear").onclick = clearHighScores;
 
 function saveHighScore() {
   var Name = initialsEl.value.trim();
@@ -174,5 +121,5 @@ function checkForEvent(event) {
     saveHighScore();
   }
 }
+
 SubmitBtn.onclick = saveHighScore;
-startBtn.onclick = StartQuiz;
